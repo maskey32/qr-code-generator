@@ -1,4 +1,14 @@
 import { Injectable } from "@nestjs/common";
 
 @Injectable({})
-export class MoviesService {};
+export class MoviesService {
+    addMovie() {}
+
+    getMovies() {}
+    
+    getMovieById() {}
+
+    updateMovieById() {}
+
+    deleteMovieById() {}
+};
