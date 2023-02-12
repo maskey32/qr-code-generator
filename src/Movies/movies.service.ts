@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/Prisma/prisma.service";
-// import { Movie } from "@prisma/client";
+import { Movie } from "@prisma/client";
 import { CreateMovieDto, UpdateMovieDto } from "./dto";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
@@ -8,7 +8,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 export class MoviesService {
     constructor(private prisma: PrismaService) {};
 
-    addMovie(dto: CreateMovieDto) {
+    addMovie(dto: CreateMovieDto): Promise<Movie> {
         try {
             const movie = this.prisma.movie.create({
                 data: { ...dto }
@@ -25,7 +25,7 @@ export class MoviesService {
         }
     }
 
-    async getMovies() {
+    async getMovies(): Promise<Movie[]> {
         try {
             const movies = await this.prisma.movie.findMany();
     
@@ -41,7 +41,7 @@ export class MoviesService {
         }
     }
     
-    async getMovieById(movieId: number) {
+    async getMovieById(movieId: number): Promise<Movie> {
         try {
             const movie = await this.prisma.movie.findUnique({
                 where: { id: movieId }
@@ -59,7 +59,7 @@ export class MoviesService {
         }
     }
 
-    async updateMovieById(movieId: number, dto: UpdateMovieDto) {
+    async updateMovieById(movieId: number, dto: UpdateMovieDto): Promise<Movie> {
         try {
             const movie = await this.prisma.movie.findUnique({
                 where: { id: movieId }
@@ -78,7 +78,7 @@ export class MoviesService {
         }
     }
 
-    async deleteMovieById(movieId: number) {
+    async deleteMovieById(movieId: number): Promise<Movie> {
         try {
             const movie = await this.prisma.movie.findUnique({
                 where: { id: movieId }

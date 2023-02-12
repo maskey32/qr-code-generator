@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { MoviesService } from "./movies.service";
-// import { Movie } from "@prisma/client";
+import { Movie } from "@prisma/client";
 import { CreateMovieDto, UpdateMovieDto } from "./dto";
 import { RouteNames, routesV1Prefix } from "../common/config";
 
@@ -10,7 +10,7 @@ export class MoviesController {
 
     @HttpCode(HttpStatus.CREATED)
     @Post()
-    async addMovie(@Body() dto: CreateMovieDto): Promise<{ message: string; data: any; }> {
+    async addMovie(@Body() dto: CreateMovieDto): Promise<{ message: string; data: Movie; }> {
         const movie = await this.moviesService.addMovie(dto);
 
         return {
@@ -20,7 +20,7 @@ export class MoviesController {
     }
 
     @Get()
-    async getMovies(): Promise<{ message: string; data: any; }> {
+    async getMovies(): Promise<{ message: string; data: Movie[]; }> {
         const movies = await this.moviesService.getMovies();
 
         return {
@@ -30,7 +30,7 @@ export class MoviesController {
     }
     
     @Get(':id')
-    async getMovieById(@Param('id', ParseIntPipe) movieId: number): Promise<{ message: string; data: any; }> {
+    async getMovieById(@Param('id', ParseIntPipe) movieId: number): Promise<{ message: string; data: Movie; }> {
         const movie = await this.moviesService.getMovieById(movieId);
 
         return {
@@ -40,7 +40,7 @@ export class MoviesController {
     }
 
     @Patch(':id')
-    async updateMovieById(@Param('id', ParseIntPipe) movieId: number, dto: UpdateMovieDto): Promise<{ message: string; data: any; }> {
+    async updateMovieById(@Param('id', ParseIntPipe) movieId: number, dto: UpdateMovieDto): Promise<{ message: string; data: Movie; }> {
         const movie = await this.moviesService.updateMovieById(movieId, dto);
 
         return {
@@ -50,7 +50,7 @@ export class MoviesController {
     }
     
     @Delete(':id')
-    async deleteMovieById(@Param('id', ParseIntPipe) movieId: number): Promise<{ message: string; data: any; }> {
+    async deleteMovieById(@Param('id', ParseIntPipe) movieId: number): Promise<{ message: string; data: Movie; }> {
         const movie = await this.moviesService.deleteMovieById(movieId);
 
         return {
