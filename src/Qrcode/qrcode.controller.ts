@@ -6,7 +6,12 @@ export class QrcodeController {
     constructor(private qrcodeService: QrcodeService) {}
 
     @Get()
-    getQrcode() {
-        const qrcode = this.qrcodeService.getQrcode();
+    async getQrcode(): Promise<{ message: string; result: string; }> {
+        const qrcode = await this.qrcodeService.getQrcode();
+
+        return {
+            message: 'Successfully fetched QR Code',
+            result: qrcode
+        }
     }
 };
