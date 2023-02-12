@@ -1,0 +1,24 @@
+# version: '3.8'
+# services:
+#   movies-db:
+#     image: postgres:13
+#     ports:
+#       - 5445:5432
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 123
+#       POSTGRES_DB: movies
+#     networks:
+#       - freecodecamp
+#   testMovies-db:
+#     image: postgres:13
+#     ports:
+#       - 5446:5432
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 123
+#       POSTGRES_DB: testMovies
+#     networks:
+#       - freecodecamp
+# networks:
+#   freecodecamp:
